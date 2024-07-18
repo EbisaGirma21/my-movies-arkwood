@@ -3,8 +3,8 @@ import React from "react";
 
 const Notification = () => {
   return (
-    <View>
-      <Text>Notification</Text>
+    <View className="mt-10">
+      <Text className="text-4xl font-bold">Notification</Text>
     </View>
   );
 };

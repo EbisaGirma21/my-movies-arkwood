@@ -20,7 +20,7 @@ export default function AppNavigation() {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName="WelcomeScreen"
+        initialRouteName="Welcome"
       >
         <Stack.Screen name="HomeTab" component={HomeTabs} />
         <Stack.Screen name="Welcome" component={WelcomeScreen} />
@@ -52,11 +52,17 @@ export default function AppNavigation() {
               <Ionicons
                 name={iconName}
                 size={customizeSize}
-                color={focused ? "black" : "gray"}
+                color={focused ? "#4F46E5" : "#4F46E5"}
               />
             );
           },
-          tabBarActiveTintColor: "black",
+          tabBarActiveTintColor: "#4F46E5",
+          tabBarActiveBackgroundColor: "#D4D1FF",
+          tabBarLabelStyle: {
+            fontWeight: "700",
+            marginBottom: 5,
+          },
+
           tabBarStyle: {
             backgroundColor: "#ffffff",
             borderTopWidth: 0,

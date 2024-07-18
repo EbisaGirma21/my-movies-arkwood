@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "my-movies-arkwood",
+    "name": "My Movies",
     "slug": "my-movies-arkwood",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -11,17 +11,21 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "ios": {
-      "supportsTablet": true
-    },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.ebisagirma21.mymoviesarkwood"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c45aa2ce-96e1-4f51-8bda-eb354e61b58e"
+      }
+    },
+    "owner": "ebisagirma21"
   }
 }

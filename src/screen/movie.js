@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 import {
   View,
   Text,
-  Image,
   StyleSheet,
   Dimensions,
   ImageBackground,
@@ -14,7 +13,6 @@ import { fetchMovies } from "../store/movie-slice";
 
 const DetailScreen = ({ route }) => {
   const { width, height } = Dimensions.get("window");
-
   const { movie } = route.params;
 
   const dispatch = useDispatch();
@@ -25,30 +23,27 @@ const DetailScreen = ({ route }) => {
     startAnimation();
   }, []);
 
-  // Create animated values for rotation and scale
   const rotateAnim = useRef(new Animated.Value(0)).current;
   const scaleAnim = useRef(new Animated.Value(0.1)).current;
 
-  // Define the animation sequence
   const startAnimation = () => {
     Animated.parallel([
       Animated.timing(rotateAnim, {
         toValue: 1,
-        duration: 1000,
+        duration: 600,
         useNativeDriver: true,
       }),
       Animated.timing(scaleAnim, {
         toValue: 1,
-        duration: 1000,
+        duration: 600,
         useNativeDriver: true,
       }),
     ]).start();
   };
 
-  // Interpolations for rotation
   const rotate = rotateAnim.interpolate({
     inputRange: [0, 1],
-    outputRange: ["0deg", "360deg"],
+    outputRange: ["270deg", "360deg"],
   });
 
   const renderItem = ({ item }) => (
@@ -74,7 +69,7 @@ const DetailScreen = ({ route }) => {
     >
       <View className="absolute z-0 bg-black w-full h-full opacity-50"></View>
       <View className="mb-10 p-4 mt-10 w-1/2 text-center">
-        <Text className="text-2xl font-bold uppercase text-white">
+        <Text className="text-4xl font-bold uppercase text-white">
           {movie?.title}
         </Text>
         <Text className="text-2xl font-bold">{movie?.language}</Text>

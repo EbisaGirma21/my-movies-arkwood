@@ -20,11 +20,16 @@ import { AntDesign } from "@expo/vector-icons";
 
 const Home = () => {
   const { width, height } = Dimensions.get("window");
+
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const movies = useSelector((state) => state.counter);
+
   const titleAnimation = useRef(new Animated.Value(width)).current;
   const titleOpacity = useRef(new Animated.Value(0)).current;
+  const animation = useRef(new Animated.Value(0)).current;
+
+  const [selectedMovie, setSelectedMovie] = useState(null);
   const [currentMovieTitle, setCurrentMovieTitle] = useState("");
   const [previousIndex, setPreviousIndex] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -36,10 +41,8 @@ const Home = () => {
   useEffect(() => {
     const direction = previousIndex < currentIndex ? 1 : -1;
     const animationStartValue = direction === 1 ? width * 0.2 : -width * 0.2;
-
     titleAnimation.setValue(animationStartValue);
     titleOpacity.setValue(0);
-
     Animated.parallel([
       Animated.timing(titleAnimation, {
         toValue: 0,
@@ -56,14 +59,11 @@ const Home = () => {
     ]).start();
   }, [currentMovieTitle]);
 
-  const animation = useRef(new Animated.Value(0)).current;
-  const [selectedMovie, setSelectedMovie] = useState(null);
-
   const handlePress = (movie) => {
     setSelectedMovie(movie);
     Animated.timing(animation, {
       toValue: 1,
-      duration: 6,
+      duration: 200,
       easing: Easing.inOut(Easing.ease),
       useNativeDriver: false,
     }).start(() => {
@@ -91,13 +91,9 @@ const Home = () => {
         ]}
       >
         <Image
-          source={
-            item?.poster_path
-              ? {
-                  uri: "https://image.tmdb.org/t/p/w500" + item?.poster_path,
-                }
-              : require("../../assets/images/avatar.png")
-          }
+          source={{
+            uri: "https://image.tmdb.org/t/p/w500" + item?.poster_path,
+          }}
           style={{
             width: width * 0.8,
             height: height * 0.6,
@@ -116,14 +112,14 @@ const Home = () => {
           className={`${
             currentMovieTitle !== item?.title
               ? "hidden"
-              : "uppercase text-2xl text-white font-bold absolute m-3 p-1 z-10"
+              : "uppercase text-2xl text-white font-bold absolute m-3 p-1 z-10 "
           } `}
         >
           {item?.title}
         </Animated.Text>
 
         <View
-          className="absolute z-0  bg-slate-800 w-full h-1/4 opacity-50 "
+          className="absolute z-0  bg-slate-800 w-full h-1/4 opacity-50  bg-gradient-to-b from-black"
           style={{}}
         ></View>
       </Animated.View>
@@ -146,10 +142,10 @@ const Home = () => {
 
         <View className="flex flex-row space-x-2">
           <Text>
-            <Ionicons name="notifications-outline" size={32} color="black" />
+            <Ionicons name="notifications-outline" size={32} color="#4F46E5" />
           </Text>
           <Text>
-            <Feather className="" name="search" size={32} color="black" />{" "}
+            <Feather className="" name="search" size={32} color="#4F46E5" />
           </Text>
         </View>
       </View>
@@ -170,16 +166,15 @@ const Home = () => {
             setCurrentMovieTitle(movies?.data?.results[index]?.title);
           }}
         />
-        <View className=" p-10 flex flex-row justify-between items-center space-x-2 w-full">
-          <TouchableOpacity>
-            <AntDesign name="infocirlce" size={24} color="black" />
+        <View className=" m-10 flex py-5 flex-row  items-center space-x-2 max-w-[80%]">
+          <TouchableOpacity className="w-[15%]">
+            <AntDesign name="infocirlce" size={48} color="#4F46E5" />
           </TouchableOpacity>
           <View>
-            <Text className=" text-black ">{currentMovieTitle}</Text>
+            <Text className=" text-black font-bold text-lg ">
+              {currentMovieTitle}
+            </Text>
           </View>
-          <TouchableOpacity>
-            <AntDesign name="heart" size={24} color="black" />
-          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -188,10 +183,4 @@ const Home = () => {
 
 export default Home;
 
-const styles = StyleSheet.create({
-  movieTitle: {
-    fontSize: 30,
-    fontWeight: "bold",
-    color: "white",
-  },
-});
+const styles = StyleSheet.create({});
